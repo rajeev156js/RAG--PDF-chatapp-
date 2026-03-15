@@ -1,0 +1,76 @@
+I built a Multi-PDF Chatbot AI Agent using Streamlit, which allows users to upload multiple PDF files and then ask any question based on the data present in those PDFs. First, I used PyPDF2’s (library) PdfReader (inbuilt function) and extract_text() (inbuilt function) to read each PDF and extract text from all pages. Then, I split the text into manageable chunks using LangChain’s library RecursiveCharacterTextSplitter to ensure the language model could process it effectively. I generated embeddings for these chunks using HuggingFace’s model and stored them in a FAISS vector database for efficient similarity search.
+
+When a user asks a question, the user question is first converted into an embedding, then the app searches for the most relevant chunks in the database using similarity search and passes them to Google Gemini LLM (gemini-1.5-flash) via LangChain’s QA Chain, using a custom prompt template to ensure accurate answers.
+
+The app’s Streamlit frontend allows users to upload PDFs, process them, and ask questions in real time. Overall, this project combines PDF processing, embeddings, semantic search, and generative AI to provide a responsive, document-based chatbot experience.
+
+---------------------------------------
+
+We do embedding to convert text (or other data) into a numerical vector representation that a machine can understand. These vectors capture the semantic meaning of the text, so similar texts have vectors that are close together in the vector space.
+
+Semantic search is a method of searching where the system looks for the meaning of the query, not just the exact keywords.Unlike traditional keyword-based search that matches words literally, semantic search understands the context and intent behind the words. It finds results that are conceptually similar to the query, even if the exact words aren’t present.
+
+---------------------------------------
+
+The temperature in a language model controls the creativity or randomness of the output:
+
+Low temperature (e.g., 0–0.3): The model is more deterministic, sticking closely to likely answers. Good for factual, precise responses.
+High temperature (e.g., 0.7–1.0): The model is more creative and diverse, generating varied or imaginative responses, but may sometimes be less accurate.
+
+-----------------------------------------
+
+RAG (Retrieval-Augmented Generation) is a method where a model retrieves relevant information from documents (like PDFs) and then uses that info to generate an answer.
+In simple words: First, the system searches for relevant text. Then, it answers your question using that text instead of guessing.
+
+-----------------------------------------
+
+By splitting data into smaller but still semantically meaningful pieces, chunking retrieves only the information relevant to a user's query and sticks closer to the LLM's token limit. As a result, chunking: Improves context relevance because the model only sees information related to the query.
+
+-------------------------------
+
+Fine-tuning an LLM is a technique that adapts a pre-trained model for a specific task or domain by training it further on a smaller, specialized dataset. This process updates the model's weights to make it an "expert" in a particular area, improving its accuracy and relevance for niche applications. For example, a general LLM could be fine-tuned on a company's customer support data to generate more accurate, on-brand responses.  
+
+-----------------------------------
+
+FAISS(Facebook AI Similarity Search) → Developed by Facebook, highly optimized for fast similarity search on large datasets (millions of embeddings). Best for performance.
+
+ChromaDB(Chroma Database) → Open-source vector database designed for LLM apps, comes with built-in persistence, metadata filtering, and easy integration with LangChain.
+
+👉 In short: FAISS = speed & scale, ChromaDB = features & easy integration.
+
+------------------------------------
+
+A Transformer is a deep learning architecture that powers almost all modern Generative AI models like ChatGPT, Gemini, and BERT. It is based on the self-attention mechanism, which allows the model to look at all the words in a sentence at once and decide which words are important in relation to others. This makes Transformers much better than older models like RNNs and LSTMs, which process text one word at a time and often forget earlier context. In Transformers, input text is first converted into embeddings (numerical vectors), then multiple layers of attention and feed-forward networks capture relationships between words. For example, in the sentence “The cat sat on the mat because it was tired”, the Transformer links the word “it” back to “cat” using self-attention, correctly understanding the meaning. The key advantage of Transformers is that they can process data in parallel (making them faster), handle long-range dependencies (better context understanding), and scale efficiently to very large datasets, which is why they are the foundation of today’s large language models. Transformers are widely used in machine translation, chatbots, text summarization, question answering, and even in Vision Transformers for image recognition
+
+---------------------------------------
+
+Parsing is the process of reading raw data (text, code, file) and converting it into a structured format that a program can understand and process.
+
+------------------------------------
+
+Pandas → Used for data manipulation and analysis in Python. It provides DataFrame and Series structures that make it easy to clean, filter, group, and analyze structured data (like CSV, Excel, SQL). Example: analyzing tabular PDF data in your project.
+
+NumPy → Provides fast numerical computations using multidimensional arrays. It is the foundation for scientific computing in Python and is used behind the scenes in Pandas, ML libraries, and deep learning frameworks. Example: efficient handling of embeddings or matrix operations in GenAI.
+
+PySpark → Used for big data processing when datasets are too large for Pandas or NumPy. It enables distributed computing using Spark, so you can process terabytes of data across clusters. Example: running transformations or aggregations on huge logs or training datasets for AI.
+
+👉 In short:
+
+NumPy → math & arrays (fast calculations)
+Pandas → data analysis (structured/tabular data)
+PySpark → big data (distributed computing at scale)
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
